@@ -1,0 +1,29 @@
+
+
+<html>
+<head>
+
+
+
+  </head>
+<body>
+  <div>
+    <textarea name="name" rows="20" cols="80" id="input"></textarea>
+    </div>
+    <div style="margin-top: 10px">
+      <button type="button" name="button" id="btn" onclick="handleClick()">getsum</button>
+      </div>
+
+
+  <script type="text/javascript">
+    // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
+    function handleClick(){
+      const value = document.getElementById("input").value
+      const mapper = str => Number(str.replace(',', ''))
+      const acc = (a,b) => a+b
+      const sum = value.trim().split('\n').map(mapper).reduce(acc)
+      alert(sum)
+    }
+  </script>
+</body>
+</html>
