@@ -5,17 +5,17 @@
     .input, .btn {
       font-size: 24px;
     }
-    .btn {
-      cursor: pointer;
+    .sum h1 {
+      font-size: 100px;
     }
   </style>
 </head>
 <body>
   <div>
-    <textarea name="name" class="input" rows="20" cols="80" id="input"></textarea>
+    <textarea name="name" class="input" rows="8" cols="40" id="input" onkeyup="getSum()"></textarea>
   </div>
-  <div style="margin-top: 10px">
-    <button type="button" name="button" id="btn" class="btn" onclick="handleClick()">getsum</button>
+  <div class="sum">
+    <h1 id="result"></h1>
   </div>
   <script type="text/javascript">
     window.onload = () => {
@@ -26,12 +26,12 @@
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
     // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
-    function handleClick(){
+    function getSum(){
       const value = document.getElementById("input").value
       const mapper = str => Number(str.replace(',', ''))
       const acc = (a,b) => a+b
       const sum = value.trim().split('\n').map(mapper).reduce(acc)
-      alert(formatNumber(sum))
+      document.getElementById("result").innerText = formatNumber(sum)
     }
   </script>
 </body>
