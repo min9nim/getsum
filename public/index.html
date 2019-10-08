@@ -24,6 +24,7 @@
       navigator.clipboard.readText()
         .then(text => {
           input.value = text
+          getSum()
         })
         .catch(err => {
           console.error('Failed to read clipboard contents: ', err)
