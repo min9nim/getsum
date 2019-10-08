@@ -12,14 +12,22 @@
 </head>
 <body>
   <div>
-    <textarea name="name" class="input" rows="8" cols="40" id="input" onkeyup="getSum()"></textarea>
+    <textarea id="input" name="name" class="input" rows="8" cols="40" onkeyup="getSum()"></textarea>
   </div>
   <div class="sum">
     <h1 id="result"></h1>
   </div>
   <script type="text/javascript">
     window.onload = () => {
-      document.getElementById("input").focus()
+      let input = document.getElementById("input")
+      input.focus()
+      navigator.clipboard.readText()
+        .then(text => {
+          input.value = text
+        })
+        .catch(err => {
+          console.error('Failed to read clipboard contents: ', err)
+        })
     }
     function formatNumber(num) {
       // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
