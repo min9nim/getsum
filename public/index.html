@@ -1,65 +1,76 @@
-
 <html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    .input, .btn {
-      font-size: 24px;
-    }
-    .sum h1 {
-      font-size: 100px;
-    }
-    #detail {
-      margin-top: 20px;
-      margin-bottom: 0px;
-      font-size: 20px;
-    }
-    #result {
-      margin-top: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <textarea id="input" name="name" class="input" rows="8" cols="40" onkeyup="getSum()"></textarea>
-  </div>
-  <div class="sum">
-    <h4 id="detail"></h4>
-    <h1 id="result"></h1>
-  </div>
-  <script type="text/javascript">
-    window.onload = () => {
-      let input = document.getElementById("input")
-      input.focus()
-      navigator.permissions.query({name: "clipboard-read"}).then(result => {
-        console.log({result})
-        if(result.state == "granted" || result.state == "prompt"){
-          navigator.clipboard.readText()
-            .then(text => {
-              input.value = text
-              getSum()
-            })
-            .catch(err => {
-              console.error('Failed to read clipboard contents: ', err)
-            })
-        }
-      })
-
-    }
-    function formatNumber(num) {
-      // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
-      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
-    // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
-    function getSum(){
-      const value = document.getElementById("input").value
-      const mapper = str => Number(str.replace(/\D/g, ''))
-      const acc = (a,b) => a+b
-      const mapped = value.trim().split('\n').map(mapper)
-      document.getElementById("detail").innerText = mapped.join(' + ') + ' ='
-      const sum = mapped.reduce(acc)
-      document.getElementById("result").innerText = formatNumber(sum)
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .input,
+      .btn {
+        font-size: 24px;
+      }
+      .sum h1 {
+        font-size: 100px;
+      }
+      #detail {
+        margin-top: 20px;
+        margin-bottom: 0px;
+        font-size: 20px;
+      }
+      #result {
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Input your values one item per one line to get sum of numbers</h3>
+    <div>
+      <textarea
+        id="input"
+        name="name"
+        class="input"
+        rows="8"
+        cols="40"
+        onkeyup="getSum()"
+      ></textarea>
+    </div>
+    <div class="sum">
+      <h4 id="detail"></h4>
+      <h1 id="result"></h1>
+    </div>
+    <script type="text/javascript">
+      window.onload = () => {
+        let input = document.getElementById("input")
+        input.focus()
+        navigator.permissions.query({ name: "clipboard-read" }).then(result => {
+          // console.log({result})
+          if (result.state == "granted" || result.state == "prompt") {
+            navigator.clipboard
+              .readText()
+              .then(text => {
+                input.value = text
+                getSum()
+              })
+              .catch(err => {
+                console.error("Failed to read clipboard contents: ", err)
+              })
+          }
+        })
+      }
+      function formatNumber(num) {
+        // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+      }
+      // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
+      function getSum() {
+        const value = document.getElementById("input").value
+        const mapper = str => Number(str.replace(/\D/g, ""))
+        const acc = (a, b) => a + b
+        const mapped = value
+          .trim()
+          .split("\n")
+          .map(mapper)
+        document.getElementById("detail").innerText = mapped.join(" + ") + " ="
+        const sum = mapped.reduce(acc)
+        document.getElementById("result").innerText = formatNumber(sum)
+      }
+    </script>
+  </body>
 </html>
