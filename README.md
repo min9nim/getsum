@@ -3,6 +3,8 @@
 2. Input your values one item per one line to get sum of numbers
     - clipboard data is inserted automatically when use chrome
 
+<br>
+
 following input
 ```
 김밥 2,000
