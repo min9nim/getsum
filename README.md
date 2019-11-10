@@ -1,7 +1,7 @@
 ### Usage
 1. Visit https://getsum.now.sh
 2. Input your values one item per one line to get sum of numbers
-- clipboard data is inserted automatically when use chrome
+    - clipboard data is inserted automatically when use chrome
 
 following input
 ```
