@@ -7,11 +7,11 @@
 
 following input
 ```
-김밥 2,000
-저축 8,600
-커피 6,600
-버스 4,100
-점심 4,500
+lunch 2,000
+book 8,600
+coffee 6,600
+bus 4,100
+shopping 4,500
 ```
 
 you can get the result of sum
