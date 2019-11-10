@@ -1,5 +1,5 @@
 ### Usage
-Input your `\n` separated value to textarea
+visit https://getsum.now.sh and input your `\n` separated value to textarea
 - clipboard data is inserted automatically when use chrome
 ```
 김밥 2,000
