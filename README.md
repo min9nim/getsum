@@ -8,3 +8,10 @@ Input your `\n` separated value to textarea
 버스 4,100
 점심 4,500
 ```
+
+you can get the result of sum
+
+```
+2000 + 8600 + 6600 + 4100 + 4500 =
+25,800
+```
