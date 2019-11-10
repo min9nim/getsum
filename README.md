@@ -5,7 +5,7 @@
 
 <br>
 
-following input
+With following input,
 ```
 lunch 2,000
 book 8,600
