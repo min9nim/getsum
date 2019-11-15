@@ -18,6 +18,9 @@
       #result {
         margin-top: 5px;
       }
+      .clear-btn{
+        margin-top: 10px
+      }
     </style>
   </head>
   <body>
@@ -32,6 +35,7 @@
         onkeyup="getSum()"
       ></textarea>
     </div>
+    <button class='clear-btn' onclick="clearInput()">Clear</button>
     <div class="sum">
       <h4 id="detail"></h4>
       <h1 id="result"></h1>
@@ -71,6 +75,10 @@
         document.getElementById("detail").innerText = mapped.map(formatNumber).join(" + ") + " ="
         const sum = mapped.reduce(acc)
         document.getElementById("result").innerText = formatNumber(sum)
+      }
+      function clearInput(){
+        document.getElementById("input").value = ''
+        document.getElementById("input").foucs()
       }
     </script>
   </body>
