@@ -15,6 +15,12 @@
         margin-bottom: 0px;
         font-size: 20px;
       }
+      .main{
+        margin: 10px;
+      }
+      #input {
+        width: 100%;
+      }
       #result {
         margin-top: 5px;
       }
@@ -24,21 +30,22 @@
     </style>
   </head>
   <body>
-    <h3>Input your values one item per one line to get sum of numbers</h3>
-    <div>
-      <textarea
-        id="input"
-        name="name"
-        class="input"
-        rows="8"
-        cols="40"
-        onkeyup="getSum()"
-      ></textarea>
-    </div>
-    <button class='clear-btn' onclick="clearInput()">Clear</button>
-    <div class="sum">
-      <h4 id="detail"></h4>
-      <h1 id="result"></h1>
+    <div class="main">
+        <h3>Input your values one item per one line to get sum of numbers</h3>
+        <div>
+          <textarea
+            id="input"
+            name="name"
+            class="input"
+            rows="8"
+            onkeyup="getSum()"
+          ></textarea>
+        </div>
+        <button class='clear-btn' onclick="clearInput()">Clear</button>
+        <div class="sum">
+          <h4 id="detail"></h4>
+          <h1 id="result"></h1>
+        </div>      
     </div>
     <script type="text/javascript">
       window.onload = () => {
@@ -78,6 +85,7 @@
       }
       function clearInput(){
         document.getElementById("input").value = ''
+        document.getElementById("detail").innerText = ''
         document.getElementById("input").foucs()
       }
     </script>
