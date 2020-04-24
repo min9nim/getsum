@@ -41,7 +41,7 @@
           name="name"
           class="input"
           rows="8"
-          onkeyup="getSum()"
+          onkeyup="keyUp()"
         ></textarea>
       </div>
       <button class="clear-btn" onclick="clearInput()">Clear</button>
@@ -51,6 +51,10 @@
       </div>
     </div>
     <script type="text/javascript">
+      // function formatNumber(num) {
+      //   // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
+      //   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      // }
       function dom(id) {
         return document.getElementById(id)
       }
@@ -74,6 +78,17 @@
             console.error('Failed to read clipboard contents: ', e)
           }
         }
+      }
+
+      function formatNumber() {
+        dom('input').value = dom('input').value.replace(
+          /([\d,]+)/g,
+          (match, p1) => Number(p1.replace(/,/g, '')).toLocaleString(),
+        )
+      }
+      function keyUp() {
+        formatNumber()
+        getSum()
       }
       // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
       function getSum() {
