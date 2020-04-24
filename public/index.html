@@ -1,6 +1,9 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
     <meta charset="UTF-8" />
     <style>
       .input,
@@ -15,7 +18,7 @@
         margin-bottom: 0px;
         font-size: 20px;
       }
-      .main{
+      .main {
         margin: 5px;
       }
       #input {
@@ -24,70 +27,71 @@
       #result {
         margin-top: 5px;
       }
-      .clear-btn{
-        margin-top: 10px
+      .clear-btn {
+        margin-top: 10px;
       }
     </style>
   </head>
   <body>
     <div class="main">
-        <h3>Input your values one item per one line to get sum of numbers</h3>
-        <div>
-          <textarea
-            id="input"
-            name="name"
-            class="input"
-            rows="8"
-            onkeyup="getSum()"
-          ></textarea>
-        </div>
-        <button class='clear-btn' onclick="clearInput()">Clear</button>
-        <div class="sum">
-          <h4 id="detail"></h4>
-          <h1 id="result"></h1>
-        </div>      
+      <h3>Input the number per one line to get sum of numbers</h3>
+      <div>
+        <textarea
+          id="input"
+          name="name"
+          class="input"
+          rows="8"
+          onkeyup="getSum()"
+        ></textarea>
+      </div>
+      <button class="clear-btn" onclick="clearInput()">Clear</button>
+      <div class="sum">
+        <h4 id="detail"></h4>
+        <h1 id="result"></h1>
+      </div>
     </div>
     <script type="text/javascript">
-      window.onload = () => {
-        let input = document.getElementById("input")
-        input.focus()
-        navigator.permissions.query({ name: "clipboard-read" }).then(result => {
-          // console.log({result})
-          if (result.state == "granted" || result.state == "prompt") {
-            navigator.clipboard
-              .readText()
-              .then(text => {
-                input.value = text
-                getSum()
-              })
-              .catch(err => {
-                console.error("Failed to read clipboard contents: ", err)
-              })
-          }
-        })
+      function dom(id) {
+        return document.getElementById(id)
       }
-      function formatNumber(num) {
-        // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
-        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+      window.onload = async () => {
+        const value = localStorage.getItem('value')
+        if (value) {
+          dom('input').value = value
+          getSum()
+          return
+        }
+        let input = dom('input')
+        input.focus()
+        const result = await navigator.permissions.query({
+          name: 'clipboard-read',
+        })
+        // console.log({result})
+        if (result.state == 'granted' || result.state == 'prompt') {
+          try {
+            input.value = await navigator.clipboard.readText()
+          } catch (e) {
+            console.error('Failed to read clipboard contents: ', e)
+          }
+        }
       }
       // https://gist.github.com/min9nim/814663f37f565c540c8bbee9296ea6a4
       function getSum() {
-        const value = document.getElementById("input").value
-        const mapper = str => Number(str.replace(/\D/g, ""))
-        const acc = (a, b) => a + b
-        const mapped = value
-          .trim()
-          .split("\n")
-          .map(mapper)
-        document.getElementById("detail").innerText = mapped.map(formatNumber).join(" + ") + " ="
-        const sum = mapped.reduce(acc)
-        document.getElementById("result").innerText = formatNumber(sum)
+        const value = dom('input').value
+        localStorage.setItem('value', value)
+        const mapper = (str) => Number(str.replace(/\D/g, ''))
+        const mapped = value.trim().split('\n').map(mapper)
+        dom('detail').innerText =
+          mapped.map((num) => num.toLocaleString()).join(' + ') + ' ='
+        const sum = mapped.reduce((acc, value) => acc + value)
+        dom('result').innerText = sum.toLocaleString()
       }
-      function clearInput(){
-        document.getElementById("input").value = ''
-        document.getElementById("detail").innerText = ''
-        document.getElementById("result").innerText = ''
-        document.getElementById("input").focus()
+      function clearInput() {
+        dom('input').value = ''
+        dom('detail').innerText = ''
+        dom('result').innerText = ''
+        dom('input').focus()
+        localStorage.clear()
       }
     </script>
   </body>
